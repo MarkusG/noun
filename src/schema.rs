@@ -1,24 +1,12 @@
 table! {
-    note (id) {
+    place (id) {
         id -> Int4,
-        thing_id -> Int4,
-        created -> Timestamp,
-        content -> Nullable<Text>,
-    }
-}
-
-table! {
-    thing (id) {
-        id -> Int4,
-        name -> Text,
-        created -> Timestamp,
+        lat -> Nullable<Float8>,
+        long -> Nullable<Float8>,
+        address -> Nullable<Text>,
+        name -> Nullable<Text>,
         tags -> Nullable<Array<Text>>,
+        description -> Text,
+        recorded -> Timestamp,
     }
 }
-
-joinable!(note -> thing (thing_id));
-
-allow_tables_to_appear_in_same_query!(
-    note,
-    thing,
-);

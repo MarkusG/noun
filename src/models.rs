@@ -1,18 +1,27 @@
-use super::schema::thing;
+use super::schema::place;
 
 use chrono::NaiveDateTime;
 
 #[derive(Queryable)]
-pub struct Thing {
+#[derive(Debug)]
+pub struct Place {
     pub id: i32,
-    pub name: String,
-    pub created: NaiveDateTime,
-    pub tags: Option<Vec<String>>
+    pub lat: Option<f64>,
+    pub long: Option<f64>,
+    pub address: Option<String>,
+    pub name: Option<String>,
+    pub tags: Option<Vec<String>>,
+    pub description: String,
+    pub recorded: NaiveDateTime,
 }
 
 #[derive(Insertable)]
-#[table_name="thing"]
-pub struct NewThing<'a> {
-    pub name: &'a str,
-    pub tags: Option<Vec<&'a str>>
+#[table_name="place"]
+pub struct NewPlace<'a> {
+    pub lat: Option<f64>,
+    pub long: Option<f64>,
+    pub address: Option<&'a str>,
+    pub name: Option<&'a str>,
+    pub tags: Option<Vec<&'a str>>,
+    pub description: &'a str,
 }

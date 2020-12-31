@@ -6,20 +6,27 @@ use models::*;
 use diesel::prelude::*;
 
 fn main() {
-    use noun::schema::thing::dsl::*;
+    use noun::schema::place::dsl::*;
 
     // Get our connection to the database
     let connection = establish_connection();
 
-    // Insert a new thing
-    // add_thing(&connection, "Foobar", Some(vec!["baz", "adz"]));
-    
-    // Query the thing table
-    let results = thing.load::<Thing>(&connection)
-        .expect("Error loading things");
+    // Insert a new place
+    // add_place(&connection,
+    //           None,
+    //           None,
+    //           None,
+    //           Some("Test Place"),
+    //           Some(vec!["Foo", "Bar", "Baz"]),
+    //           "A cool place");
 
-    println!("Displaying {} things", results.len());
-    for t in results {
-        println!("{}\n{:?}\n{:?}", t.name, t.tags, t.created);
+    
+    // Query the place table
+    let results = place.load::<Place>(&connection)
+        .expect("Error loading places");
+
+    println!("Displaying {} places", results.len());
+    for p in results {
+        println!("{:#?}\n\n", p);
     }
 }

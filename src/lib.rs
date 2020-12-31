@@ -10,7 +10,7 @@ use diesel::pg::PgConnection;
 use dotenv::dotenv;
 use std::env;
 
-use self::models::{Thing, NewThing};
+use self::models::{Place, NewPlace};
 
 pub fn establish_connection() -> PgConnection {
     dotenv().ok();
@@ -21,18 +21,26 @@ pub fn establish_connection() -> PgConnection {
         .expect(&format!("Error connecting to {}", database_url))
 }
 
-pub fn add_thing<'a>(conn: &PgConnection,
-                     name: &'a str,
-                     tags: Option<Vec<&'a str>>) -> Thing {
-    use schema::thing;
+pub fn add_place<'a>(conn: &PgConnection,
+                     lat: Option<f64>,
+                     long: Option<f64>,
+                     address: Option<&'a str>,
+                     name: Option<&'a str>,
+                     tags: Option<Vec<&'a str>>,
+                     description: &'a str) -> Place {
+    use schema::place;
 
-    let new_thing = NewThing {
+    let new_place = NewPlace {
+        lat: lat,
+        long: long,
+        address: address,
         name: name,
         tags: tags,
+        description: description
     };
 
-    diesel::insert_into(thing::table)
-        .values(&new_thing)
+    diesel::insert_into(place::table)
+            .values(&new_place)
         .get_result(conn)
         .expect("Error inserting thing")
 }
