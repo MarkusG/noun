@@ -9,4 +9,6 @@ CREATE TABLE place (
 	tags TEXT[],
 	description TEXT NOT NULL,
 	recorded TIMESTAMP NOT NULL DEFAULT now()
+
+	CHECK ((lat IS NOT NULL AND long IS NOT NULL) OR address IS NOT NULL)
 )
