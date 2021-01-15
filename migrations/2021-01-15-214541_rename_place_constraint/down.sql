@@ -1,0 +1,9 @@
+ALTER TABLE place
+DROP CONSTRAINT has_location;
+
+ALTER TABLE place
+ADD CONSTRAINT
+CHECK (
+	(lat IS NOT NULL AND long IS NOT NULL)
+	OR address IS NOT NULL
+)
